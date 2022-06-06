@@ -1,0 +1,11 @@
+import pyodbc
+import pandas as pd
+import falcon
+
+conn = pyodbc.connect('Driver={SQL Server};'
+                          'Server=CEIYSEKIRALOASB\CEIYSBENNOVA;'
+                          'Database=DatabaseServer;'
+                          'Trusted_Connection=yes;')
+query = (f"SELECT UserInfo.OrgName, UserInfo.Province, UserInfo.City, UserInfo.District,UserInfo.Email,SignInfo.Sig, SignInfo.SerialNumber,SignInfo.NotValidBefore, SignInfo.NotValidAfter FROM UserInfo,SignInfo where UserInfo.Username = SignInfo.Username and Sig = '39f3bbfab867abdc7939efb3c71deca062682f83527dba5bc612e628b42f22cf59983398f573631ddc0866ae4debac913c9a2cca571637bddfe1321482b74372ac049529424fa5c2758f120ba18565998231908d58610949c9e6f9baf90d777f54f9f1b67ee4c0edbbea67f9c8504d41f7f17d30881c2320bfcd22494962256d20f6fa1765c32aed7867d0ef1b3054f5246295e242ba7575da029295cdb23886767a717a14ada3582014f629964e2889fba13463912d6cfa32b6ac9047c35da1623dee4d33771e20cddb450131c4b9098699934646bc7d12e463383b47fbd9e7b447a439bcd8c24d586e24ad059b2f53be64ad813d8be34128660d9e2e8f2b8228ae9d631e5a2c85b62ad6a5b534431cfbd64bec859f770e5672490b5bcd0d234120ef558a7635b642db04314657589a96afbb6d332c23c1c2e3a5ee4addc8e5e3c32386d3f33a4accadb1c410b09153eac8ca324831f00c4093b73b2f7b130e6e32ed8b430c701ebfba04c336090e627f7846214fb3f6a1df65ba17890f35c4eb68aa5b6a0656573d11190a72e6228a55a0eca76b4c5f40fdc49e840d6adcbbb6b5bf7fe6f34a4c536f98f377f5b32475b5cc4db0085ec57af1690c5275fe9ace206569309fe1357a358cb2d4388f25e2e959c09c621bcea85b6bfadc6d87bc802094673796eb342468c640a74c3fe6caaebc71fc532f66da57702edce17076d4843e23c259d7f47adfd8ae6e32b0352ac7227f5ed817c38d51cea40e8f79db562f129e2a0aa76b5ad655c54f35de5469d25e1f064feb72ca30a752c72d43ce9ca1b6e9b12caf2d1196dcbe3a5a7967d235f07b260c9a73cc3369af48291a3c45be21d991e96c71752b955123ff5c9ce93f3e0c7e5b084e8c42e6839956f5357c975dca14233ac46e28eccbccc5299d8d900000000000000000'")
+data = pd.read_sql_query(query, conn)
+print(data)
